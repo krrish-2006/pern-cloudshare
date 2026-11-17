@@ -60,7 +60,11 @@ export default function Gallery({ setToken }) {
     if (response.ok) {
       fetchFiles();
       setFile(null); // Reset input
+    } else {
+      const data = await response.json();
+      alert(data.error); // This will show "Only image files are allowed!"
     }
+
   }
 
   return (

@@ -6,9 +6,12 @@ export default function Gallery({ setToken }) {
 
   const fetchFiles = async () => {
     const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:5000/api/files/", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await fetch(
+      "https://pern-cloudshare.onrender.com/api/files/",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
     if (!response.ok) {
       localStorage.removeItem("token");
       setToken(null);
@@ -29,10 +32,13 @@ export default function Gallery({ setToken }) {
 
   async function handleDelete(id) {
     const token = localStorage.getItem("token");
-    const response = await fetch(`http://localhost:5000/api/files/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await fetch(
+      `https://pern-cloudshare.onrender.com/api/files/${id}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
     if (response.ok) {
       setFiles(files.filter((f) => f.id !== id));
     }
@@ -43,11 +49,14 @@ export default function Gallery({ setToken }) {
     const token = localStorage.getItem("token");
     const formData = new FormData();
     formData.append("file", file);
-    const response = await fetch("http://localhost:5000/api/files/upload", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData,
-    });
+    const response = await fetch(
+      "https://pern-cloudshare.onrender.com/api/files/upload",
+      {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      },
+    );
     if (response.ok) {
       fetchFiles();
       setFile(null); // Reset input

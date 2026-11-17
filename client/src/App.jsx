@@ -11,7 +11,7 @@ export default function App() {
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await fetch(
-      `http://localhost:5000/api/auth/${isLogin ? "login" : "register"}`,
+      `https://pern-cloudshare.onrender.com/api/auth/${isLogin ? "login" : "register"}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

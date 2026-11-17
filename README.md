@@ -2,7 +2,7 @@
 
 A full-stack file upload application where users can securely register, log in, and manage their own image gallery.
 
-**Live Demo:** [Insert your Vercel URL here]
+**Live Demo:** https://pern-cloudshare.vercel.app/
 
 ## Tech Stack
 - **Frontend:** React, Vite, Tailwind CSS (Deployed on Vercel)

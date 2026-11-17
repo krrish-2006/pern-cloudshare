@@ -83,6 +83,7 @@ export default function Gallery({ setToken }) {
         <div className="bg-white p-6 rounded-xl shadow-md mb-8 flex flex-col sm:flex-row items-center gap-4 border border-gray-100">
           <input
             type="file"
+            accept="image/*"
             onChange={(e) => setFile(e.target.files[0])}
             className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />

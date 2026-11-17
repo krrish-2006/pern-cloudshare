@@ -10,6 +10,9 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.post("/upload", auth, upload.single("file"), async (req, res) => {
   try {
+    if (!req.file.mimetype.startsWith("image/")) {
+      return res.status(400).json({ error: "Only image files are allowed!" });
+    }
     const b64 = Buffer.from(req.file.buffer).toString("base64");
     const dataURI = `data:${req.file.mimetype};base64,${b64}`;
     const cloudResult = await cloudinary.uploader.upload(dataURI);
@@ -54,7 +57,9 @@ router.delete("/:id", auth, async (req, res) => {
     const cloudResult = await cloudinary.uploader.destroy(
       result.rows[0].public_id,
     );
-    const deleteResult=await pool.query("DELETE FROM files WHERE id=$1",[id])
+    const deleteResult = await pool.query("DELETE FROM files WHERE id=$1", [
+      id,
+    ]);
     res.json({ message: "File deleted!" });
   } catch (err) {
     console.error(err);

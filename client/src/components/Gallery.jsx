@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export default function Gallery({ setToken }) {
   const [files, setFiles] = useState([]);
   const [file, setFile] = useState(null);
-
+  const [isUploading, setIsUploading] = useState(false);
   const fetchFiles = async () => {
     const token = localStorage.getItem("token");
     const response = await fetch(
@@ -46,6 +46,8 @@ export default function Gallery({ setToken }) {
 
   async function handleUpload() {
     if (!file) return;
+    setIsUploading(true);
+
     const token = localStorage.getItem("token");
     const formData = new FormData();
     formData.append("file", file);
@@ -64,7 +66,7 @@ export default function Gallery({ setToken }) {
       const data = await response.json();
       alert(data.error); // This will show "Only image files are allowed!"
     }
-
+    setIsUploading(false);
   }
 
   return (
@@ -93,10 +95,10 @@ export default function Gallery({ setToken }) {
           />
           <button
             onClick={handleUpload}
-            disabled={!file}
+            disabled={isUploading || !file}
             className="w-full sm:w-auto bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Upload File
+            {isUploading ? "Uploading..." : "Upload File"}
           </button>
         </div>
 
